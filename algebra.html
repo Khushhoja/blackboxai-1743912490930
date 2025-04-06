@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Solver | MathSolver Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="index.html" class="flex items-center py-4 px-2">
+                            <i class="fas fa-calculator text-blue-600 text-2xl mr-2"></i>
+                            <span class="font-semibold text-gray-900 text-lg">MathSolver Pro</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Home</a>
+                    <a href="algebra.html" class="py-4 px-2 text-blue-600 border-b-4 border-blue-600 font-semibold">Algebra</a>
+                    <a href="calculus.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Calculus</a>
+                    <a href="geometry.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Geometry</a>
+                    <button id="theme-toggle" class="p-2 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Algebra Solver
+            </h1>
+            <p class="mt-3 max-w-2xl text-xl text-gray-600 mx-auto">
+                Solve equations, simplify expressions, and more.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Algebra Solver Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Algebra Operations</h2>
+                <form id="algebra-form" class="space-y-4">
+                    <div>
+                        <label for="equation" class="block text-sm font-medium text-gray-700">Enter Equation/Expression</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input type="text" name="equation" id="equation" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-3 sm:text-sm border-gray-300 rounded-md" placeholder="e.g., 2x + 5 = 15">
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500">Use standard math notation. Example: 3x^2 + 2x - 5 = 0</p>
+                    </div>
+                    
+                    <div>
+                        <label for="operation" class="block text-sm font-medium text-gray-700">Operation</label>
+                        <select id="operation" name="operation" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="solve">Solve for Variable</option>
+                            <option value="simplify">Simplify</option>
+                            <option value="evaluate">Evaluate</option>
+                        </select>
+                    </div>
+                    
+                    <div id="variable-container">
+                        <label for="variable" class="block text-sm font-medium text-gray-700">Variable to Solve For</label>
+                        <select id="variable" name="variable" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option>x</option>
+                            <option>y</option>
+                            <option>z</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Solve
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Solution</h2>
+                <div id="result-container" class="space-y-4">
+                    <div class="text-center py-8">
+                        <i class="fas fa-square-root-alt text-gray-300 text-5xl mb-2"></i>
+                        <p class="text-gray-500">Your solution will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide variable selection based on operation
+        document.getElementById('operation').addEventListener('change', function() {
+            const variableContainer = document.getElementById('variable-container');
+            if (this.value === 'solve') {
+                variableContainer.classList.remove('hidden');
+            } else {
+                variableContainer.classList.add('hidden');
+            }
+        });
+
+        // Algebra solver logic
+        document.getElementById('algebra-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const equation = document.getElementById('equation').value;
+            const operation = document.getElementById('operation').value;
+            const variable = document.getElementById('variable').value;
+            
+            if (!equation) {
+                alert('Please enter an equation or expression');
+                return;
+            }
+
+            try {
+                let result;
+                let steps = [];
+                
+                if (operation === 'solve') {
+                    // Parse and solve equation
+                    const parsed = math.parse(equation);
+                    const solution = math.solve(parsed, variable);
+                    result = solution.toString();
+                    
+                    steps = [
+                        `Original equation: ${equation}`,
+                        `Solving for variable: ${variable}`,
+                        `Solution: ${variable} = ${result}`
+                    ];
+                } 
+                else if (operation === 'simplify') {
+                    // Simplify expression
+                    result = math.simplify(equation).toString();
+                    steps = [
+                        `Original expression: ${equation}`,
+                        `Simplified form: ${result}`
+                    ];
+                }
+                else {
+                    // Evaluate expression
+                    result = math.evaluate(equation);
+                    steps = [
+                        `Expression: ${equation}`,
+                        `Evaluated result: ${result}`
+                    ];
+                }
+                
+                // Display result using shared function
+                displaySuccess('result-container', 'Input', equation, steps);
+                
+                // Save to history
+                if (window.saveSolution) {
+                    saveSolution('algebra', {
+                        equation,
+                        operation,
+                        variable,
+                        solution: result,
+                        steps
+                    });
+                }
+            } catch (error) {
+                displayError('result-container', error.message);
+            }
+        });
+
+        // Initialize dark mode from shared script
+        if (window.initDarkMode) {
+            initDarkMode();
+        }
+    </script>
+</body>
+</html>
