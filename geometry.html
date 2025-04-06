@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Solver | MathSolver Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="index.html" class="flex items-center py-4 px-2">
+                            <i class="fas fa-calculator text-blue-600 text-2xl mr-2"></i>
+                            <span class="font-semibold text-gray-900 text-lg">MathSolver Pro</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Home</a>
+                    <a href="algebra.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Algebra</a>
+                    <a href="calculus.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Calculus</a>
+                    <a href="geometry.html" class="py-4 px-2 text-blue-600 border-b-4 border-blue-600 font-semibold">Geometry</a>
+                    <button id="theme-toggle" class="p-2 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Geometry Solver
+            </h1>
+            <p class="mt-3 max-w-2xl text-xl text-gray-600 mx-auto">
+                Calculate properties of common geometric shapes.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Shape Selection Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Shape Properties</h2>
+                <form id="geometry-form" class="space-y-4">
+                    <div>
+                        <label for="shape" class="block text-sm font-medium text-gray-700">Select Shape</label>
+                        <select id="shape" name="shape" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="circle">Circle</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="rectangle">Rectangle</option>
+                            <option value="square">Square</option>
+                            <option value="sphere">Sphere</option>
+                        </select>
+                    </div>
+
+                    <!-- Circle Parameters -->
+                    <div id="circle-params" class="shape-params">
+                        <label for="radius" class="block text-sm font-medium text-gray-700">Radius</label>
+                        <input type="number" id="radius" name="radius" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter radius">
+                    </div>
+
+                    <!-- Triangle Parameters -->
+                    <div id="triangle-params" class="shape-params hidden">
+                        <label for="base" class="block text-sm font-medium text-gray-700">Base</label>
+                        <input type="number" id="base" name="base" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter base">
+                        
+                        <label for="height" class="block text-sm font-medium text-gray-700 mt-2">Height</label>
+                        <input type="number" id="height" name="height" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter height">
+                        
+                        <label for="side1" class="block text-sm font-medium text-gray-700 mt-2">Side 1</label>
+                        <input type="number" id="side1" name="side1" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter side 1">
+                        
+                        <label for="side2" class="block text-sm font-medium text-gray-700 mt-2">Side 2</label>
+                        <input type="number" id="side2" name="side2" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter side 2">
+                    </div>
+
+                    <!-- Rectangle Parameters -->
+                    <div id="rectangle-params" class="shape-params hidden">
+                        <label for="length" class="block text-sm font-medium text-gray-700">Length</label>
+                        <input type="number" id="length" name="length" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter length">
+                        
+                        <label for="width" class="block text-sm font-medium text-gray-700 mt-2">Width</label>
+                        <input type="number" id="width" name="width" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter width">
+                    </div>
+
+                    <!-- Square Parameters -->
+                    <div id="square-params" class="shape-params hidden">
+                        <label for="side" class="block text-sm font-medium text-gray-700">Side Length</label>
+                        <input type="number" id="side" name="side" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter side length">
+                    </div>
+
+                    <!-- Sphere Parameters -->
+                    <div id="sphere-params" class="shape-params hidden">
+                        <label for="sphere-radius" class="block text-sm font-medium text-gray-700">Radius</label>
+                        <input type="number" id="sphere-radius" name="sphere-radius" step="0.01" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-4 pr-12 py-2 sm:text-sm border-gray-300 rounded-md" placeholder="Enter radius">
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Calculate
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Results</h2>
+                <div id="results-container" class="space-y-4">
+                    <div class="text-center py-8">
+                        <i class="fas fa-shapes text-gray-300 text-5xl mb-2"></i>
+                        <p class="text-gray-500">Your results will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize dark mode from shared script
+        if (window.initDarkMode) {
+            initDarkMode();
+        }
+
+        // Show/hide shape parameters based on selection
+        document.getElementById('shape').addEventListener('change', function() {
+            // Hide all parameter sections
+            document.querySelectorAll('.shape-params').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // Show the selected shape's parameters
+            const selectedShape = this.value;
+            document.getElementById(`${selectedShape}-params`).classList.remove('hidden');
+        });
+
+        // Geometry calculations
+        document.getElementById('geometry-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const shape = document.getElementById('shape').value;
+            let results = {};
+
+            try {
+                switch(shape) {
+                    case 'circle':
+                        const radius = parseFloat(document.getElementById('radius').value);
+                        if (isNaN(radius) || radius <= 0) throw new Error('Invalid radius');
+                        results.area = (Math.PI * radius * radius).toFixed(2);
+                        results.circumference = (2 * Math.PI * radius).toFixed(2);
+                        break;
+                    
+                    case 'triangle':
+                        const base = parseFloat(document.getElementById('base').value);
+                        const height = parseFloat(document.getElementById('height').value);
+                        const side1 = parseFloat(document.getElementById('side1').value);
+                        const side2 = parseFloat(document.getElementById('side2').value);
+                        
+                        if (isNaN(base) || base <= 0 || isNaN(height) || height <= 0) 
+                            throw new Error('Invalid base or height');
+                        
+                        results.area = (0.5 * base * height).toFixed(2);
+                        
+                        if (!isNaN(side1) && !isNaN(side2) && side1 > 0 && side2 > 0) {
+                            results.perimeter = (base + side1 + side2).toFixed(2);
+                        }
+                        break;
+                    
+                    case 'rectangle':
+                        const length = parseFloat(document.getElementById('length').value);
+                        const width = parseFloat(document.getElementById('width').value);
+                        
+                        if (isNaN(length) || length <= 0 || isNaN(width) || width <= 0) 
+                            throw new Error('Invalid length or width');
+                        
+                        results.area = (length * width).toFixed(2);
+                        results.perimeter = (2 * (length + width)).toFixed(2);
+                        break;
+                    
+                    case 'square':
+                        const side = parseFloat(document.getElementById('side').value);
+                        if (isNaN(side) || side <= 0) throw new Error('Invalid side length');
+                        
+                        results.area = (side * side).toFixed(2);
+                        results.perimeter = (4 * side).toFixed(2);
+                        break;
+                    
+                    case 'sphere':
+                        const sphereRadius = parseFloat(document.getElementById('sphere-radius').value);
+                        if (isNaN(sphereRadius) || sphereRadius <= 0) throw new Error('Invalid radius');
+                        
+                        results.surfaceArea = (4 * Math.PI * sphereRadius * sphereRadius).toFixed(2);
+                        results.volume = ((4/3) * Math.PI * Math.pow(sphereRadius, 3)).toFixed(2);
+                        break;
+                }
+
+                // Format results for display
+                const properties = Object.entries(results).map(([key, value]) => 
+                    `${key.replace(/([A-Z])/g, ' $1')}: ${value}`
+                ).join('\n');
+                
+                // Display results using shared function
+                displaySuccess('results-container', 'Shape', shape, properties.split('\n'));
+                
+                // Save to history
+                if (window.saveSolution) {
+                    saveSolution('geometry', {
+                        shape,
+                        properties: results,
+                        formulas: getShapeFormulas(shape)
+                    });
+                }
+            } catch (error) {
+                displayError('results-container', error.message);
+            }
+        });
+    </script>
+</body>
+</html>
