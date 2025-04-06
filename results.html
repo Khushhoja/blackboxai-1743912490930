@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution | MathSolver Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="index.html" class="flex items-center py-4 px-2">
+                            <i class="fas fa-calculator text-blue-600 text-2xl mr-2"></i>
+                            <span class="font-semibold text-gray-900 text-lg">MathSolver Pro</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Home</a>
+                    <a href="algebra.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Algebra</a>
+                    <a href="calculus.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Calculus</a>
+                    <a href="geometry.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Geometry</a>
+                    <button id="theme-toggle" class="p-2 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Solution Details</h1>
+            
+            <div id="solution-content" class="space-y-6">
+                <!-- Content will be populated by JavaScript -->
+                <div class="text-center py-12">
+                    <i class="fas fa-calculator text-gray-300 text-5xl mb-4"></i>
+                    <h2 class="text-xl font-medium text-gray-500">No solution to display</h2>
+                    <p class="text-gray-400 mt-2">Return to one of our solvers to get started</p>
+                    <a href="index.html" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Go to Home
+                    </a>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="mt-12 border-t pt-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Recent Solutions</h2>
+                <div id="history-list" class="space-y-2">
+                    <!-- History items will be populated by JavaScript -->
+                    <p class="text-gray-500 text-sm">No history yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const problemType = urlParams.get('type');
+        const problemData = urlParams.get('data');
+
+        if (problemType && problemData) {
+            try {
+                const data = JSON.parse(decodeURIComponent(problemData));
+                displaySolution(problemType, data);
+                addToHistory(problemType, data);
+            } catch (e) {
+                console.error('Error parsing solution data:', e);
+            }
+        }
+
+        function displaySolution(type, data) {
+            const solutionContent = document.getElementById('solution-content');
+            let solutionHTML = '';
+
+            switch(type) {
+                case 'algebra':
+                    solutionHTML = `
+                        <div class="bg-blue-50 p-4 rounded-md">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-2">Algebra Solution</h2>
+                            <p class="text-lg">Equation: ${data.equation}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-green-800 mb-2">Solution:</h3>
+                            <p class="text-xl font-bold">${data.variable} = ${data.solution}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Steps:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                ${data.steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </div>
+                    `;
+                    break;
+
+                case 'calculus':
+                    solutionHTML = `
+                        <div class="bg-blue-50 p-4 rounded-md">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-2">Calculus Solution</h2>
+                            <p class="text-lg">Function: ${data.function}</p>
+                            <p class="text-lg">Operation: ${data.operation}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-green-800 mb-2">Result:</h3>
+                            <p class="text-xl font-bold">${data.result}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Steps:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                ${data.steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </div>
+                    `;
+                    break;
+
+                case 'geometry':
+                    solutionHTML = `
+                        <div class="bg-blue-50 p-4 rounded-md">
+                            <h2 class="text-xl font-semibold text-blue-800 mb-2">Geometry Solution</h2>
+                            <p class="text-lg capitalize">Shape: ${data.shape}</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-green-800 mb-2">Properties:</h3>
+                            <ul class="space-y-2">
+                                ${Object.entries(data.properties).map(([key, value]) => `
+                                    <li class="flex justify-between">
+                                        <span class="capitalize">${key.replace(/([A-Z])/g, ' $1')}:</span>
+                                        <span class="font-medium">${value}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-md">
+                            <h3 class="text-lg font-medium text-gray-800 mb-2">Formulas Used:</h3>
+                            <ul class="list-disc pl-5 space-y-1">
+                                ${data.formulas.map(formula => `<li>${formula}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    break;
+            }
+
+            solutionContent.innerHTML = solutionHTML;
+        }
+
+        function addToHistory(type, data) {
+            let history = JSON.parse(localStorage.getItem('mathSolverHistory') || '[]');
+            
+            // Add new solution to history
+            history.unshift({
+                type,
+                data,
+                timestamp: new Date().toISOString()
+            });
+
+            // Keep only last 5 items
+            history = history.slice(0, 5);
+            localStorage.setItem('mathSolverHistory', JSON.stringify(history));
+
+            // Update history display
+            updateHistoryDisplay(history);
+        }
+
+        function updateHistoryDisplay(history) {
+            const historyList = document.getElementById('history-list');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p class="text-gray-500 text-sm">No history yet</p>';
+                return;
+            }
+
+            historyList.innerHTML = history.map(item => `
+                <div class="p-3 bg-gray-50 rounded-md hover:bg-gray-100 cursor-pointer" onclick="displaySolution('${item.type}', ${JSON.stringify(item.data).replace(/"/g, '"')})">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium capitalize">${item.type}</span>
+                        <span class="text-xs text-gray-500">${new Date(item.timestamp).toLocaleString()}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 truncate">${getHistoryPreview(item)}</p>
+                </div>
+            `).join('');
+        }
+
+        function getHistoryPreview(item) {
+            switch(item.type) {
+                case 'algebra': return `Equation: ${item.data.equation}`;
+                case 'calculus': return `${item.data.operation} of ${item.data.function}`;
+                case 'geometry': return `${item.data.shape} properties`;
+                default: return '';
+            }
+        }
+
+        // Load history on page load
+        const history = JSON.parse(localStorage.getItem('mathSolverHistory') || '[]');
+        updateHistoryDisplay(history);
+    </script>
+</body>
+</html>
