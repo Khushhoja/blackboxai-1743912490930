@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSolver Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero-bg {
+            background-image: url('https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="#" class="flex items-center py-4 px-2">
+                            <i class="fas fa-calculator text-blue-600 text-2xl mr-2"></i>
+                            <span class="font-semibold text-gray-900 text-lg">MathSolver Pro</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#" class="py-4 px-2 text-blue-600 border-b-4 border-blue-600 font-semibold">Home</a>
+                    <a href="algebra.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Algebra</a>
+                    <a href="calculus.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Calculus</a>
+                    <a href="geometry.html" class="py-4 px-2 text-gray-500 font-semibold hover:text-blue-600 transition duration-300">Geometry</a>
+                    <button id="theme-toggle" class="p-2 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-700"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-96 flex items-center">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg max-w-2xl">
+                <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+                    Solve Any Math Problem
+                </h1>
+                <p class="mt-3 text-xl text-gray-600">
+                    From basic algebra to complex calculus, our solver helps you understand and solve math problems step by step.
+                </p>
+                <div class="mt-8">
+                    <div class="rounded-md shadow">
+                        <a href="algebra.html" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                    What We Solve
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
+                    Our app covers a wide range of mathematical topics and problems.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Algebra Card -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-blue-500 rounded-md shadow-lg">
+                                        <i class="fas fa-square-root-alt text-white text-2xl"></i>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Algebra</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    Solve linear and quadratic equations, simplify expressions, and more.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculus Card -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-green-500 rounded-md shadow-lg">
+                                        <i class="fas fa-infinity text-white text-2xl"></i>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Calculus</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    Compute derivatives, integrals, limits, and series expansions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geometry Card -->
+                    <div class="pt-6">
+                        <div class="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-full">
+                            <div class="-mt-6">
+                                <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-purple-500 rounded-md shadow-lg">
+                                        <i class="fas fa-shapes text-white text-2xl"></i>
+                                    </span>
+                                </div>
+                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Geometry</h3>
+                                <p class="mt-5 text-base text-gray-600">
+                                    Calculate areas, volumes, angles, and properties of shapes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="flex justify-center md:order-2 space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+                <div class="mt-8 md:mt-0 md:order-1">
+                    <p class="text-center text-base text-gray-400">
+                        &copy; 2023 MathSolver Pro. All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize dark mode from shared script
+        if (window.initDarkMode) {
+            initDarkMode();
+        }
+    </script>
+</body>
+</html>
